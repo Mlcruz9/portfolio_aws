@@ -23,10 +23,16 @@ need_cmd() { command -v "$1" >/dev/null 2>&1; }
 install_pkgs() {
   if need_cmd dnf; then
     sudo dnf -y update
-    sudo dnf -y install nginx curl rsync ca-certificates tar gzip
+    sudo dnf -y install nginx rsync ca-certificates tar gzip
+    if ! need_cmd curl; then
+      sudo dnf -y install curl-minimal
+    fi
   elif need_cmd yum; then
     sudo yum -y update
-    sudo yum -y install nginx curl rsync ca-certificates tar gzip
+    sudo yum -y install nginx rsync ca-certificates tar gzip
+    if ! need_cmd curl; then
+      sudo yum -y install curl-minimal
+    fi
   else
     echo "ERROR: Neither dnf nor yum found. This script targets Amazon Linux."
     exit 1
