@@ -82,6 +82,8 @@ type ExperienceItem = {
  */
 
 const USERNAME = "Mlcruz9";
+const PAGE_MAX_WIDTH = 1320;
+const fromPublic = (path: string) => `/${path.replace(/^\/+/, "")}`;
 
 // Brand colors
 const BRAND = {
@@ -93,7 +95,7 @@ const LINKS = {
   github: "https://github.com/Mlcruz9",
   linkedin: "https://www.linkedin.com/in/miguellacruz/",
   email: "mailto:miguellacruz.data@gmail.com",
-  cv: "/cv/MiguelLaCruz_CV.pdf", // replace with hosted PDF URL
+  cv: fromPublic("cv/MiguelLaCruz_CV.pdf"),
 };
 
 const DEPLOYS = {
@@ -122,7 +124,7 @@ const PROJECTS: Project[] = [
       repo: "https://github.com/Mlcruz9/BusinessClientSegmentationTesting",
     },
     tag: "DEPLOYED",
-    image: "/img/image1.png",
+    image: fromPublic("img/image1.png"),
   },
   {
     title: "Travel Agent",
@@ -140,7 +142,7 @@ const PROJECTS: Project[] = [
       repo: LINKS.github,
     },
     tag: "DEPLOYED",
-    image: "/img/image2.png",
+    image: fromPublic("img/image2.png"),
   },
   {
     title: "Well Log Reconstruction",
@@ -158,7 +160,7 @@ const PROJECTS: Project[] = [
       repo: "https://github.com/Mlcruz9/Well-log-Reconstruction-using-machine-learning",
     },
     tag: "CASE STUDY",
-    image: "/img/image3.png",
+    image: fromPublic("img/image3.png"),
   },
   {
     title: "Battleship Monte Carlo AI",
@@ -176,7 +178,7 @@ const PROJECTS: Project[] = [
       repo: "https://github.com/Mlcruz9/Battleship_AI",
     },
     tag: "ALGORITHMS",
-    image: "/img/image4.png",
+    image: fromPublic("img/image4.png"),
   },
 ];
 
@@ -557,7 +559,7 @@ function TopNav({
     >
       <div
         style={{
-          maxWidth: 1040,
+          maxWidth: PAGE_MAX_WIDTH,
           margin: "0 auto",
           padding: "14px 18px",
           display: "flex",
@@ -748,7 +750,7 @@ export default function PortfolioMiguel() {
     <div id="top" style={backgroundStyle}>
       <TopNav active={active} setActive={setActive} />
 
-      <main style={{ maxWidth: 1040, margin: "0 auto", padding: "0 18px 64px" }}>
+      <main style={{ maxWidth: PAGE_MAX_WIDTH, margin: "0 auto", padding: "0 18px 64px" }}>
         {/* HERO */}
         <section style={{ padding: "54px 0 28px" }}>
           <motion.div
@@ -1091,7 +1093,7 @@ export default function PortfolioMiguel() {
       </main>
 
       <footer style={{ padding: "20px 0 36px", color: "rgba(15,23,42,0.55)", fontSize: 12 }}>
-        <div style={{ maxWidth: 1040, margin: "0 auto", padding: "0 18px" }}>
+        <div style={{ maxWidth: PAGE_MAX_WIDTH, margin: "0 auto", padding: "0 18px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
               <Sparkles size={14} color={BRAND.linkedin} />
