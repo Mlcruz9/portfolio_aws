@@ -82,7 +82,7 @@ type ExperienceItem = {
  */
 
 const USERNAME = "Mlcruz9";
-const PAGE_MAX_WIDTH = "min(96vw, 1680px)";
+const PAGE_MAX_WIDTH = "min(94vw, 1240px)";
 const fromPublic = (path: string) => `/${path.replace(/^\/+/, "")}`;
 const EMAIL_ADDRESS = "miguellacruz.data@gmail.com";
 const GLOBAL_LAYOUT_CSS = `
