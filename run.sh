@@ -73,10 +73,10 @@ echo "==> Node: $(node -v) | npm: $(npm -v)"
 
 echo "==> Creating Vite React+TS project in ${BUILD_DIR}..."
 rm -rf "$BUILD_DIR"
-mkdir -p "$BUILD_DIR"
 cd /tmp
 
-npm create vite@latest "${APP_NAME}-vite" -- --template react-ts
+# Non-interactive scaffolding to avoid prompts/hanging in EC2 sessions.
+CI=1 npm create vite@latest "${APP_NAME}-vite" -- --template react-ts --no-install
 cd "$BUILD_DIR"
 
 echo "==> Installing dependencies..."
