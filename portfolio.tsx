@@ -82,7 +82,7 @@ type ExperienceItem = {
  */
 
 const USERNAME = "Mlcruz9";
-const PAGE_MAX_WIDTH = 1680;
+const PAGE_MAX_WIDTH = "min(96vw, 1680px)";
 const fromPublic = (path: string) => `/${path.replace(/^\/+/, "")}`;
 const EMAIL_ADDRESS = "miguellacruz.data@gmail.com";
 
@@ -163,7 +163,7 @@ const PROJECTS: Project[] = [
     image: fromPublic("img/image3.png"),
   },
   {
-    title: "MESSIER ERP",
+    title: "Messier ERP",
     subtitle: "ERP web platform (deployed)",
     description:
       "ERP platform for operations and workflow management with a Django backend and React frontend. Focused on modular architecture, maintainability, and business process integration.",
@@ -240,7 +240,7 @@ const EXPERIENCE: ExperienceItem[] = [
   {
     when: "2024",
     role: "Cloud R&D · Universitat Rovira i Virgili (Cloud Lab)",
-    where: "Catalonia",
+    where: "Catalonia (remote)",
     bullets: [
       "Research on Kubernetes resource optimization for data pipelines (Dask + AWS).",
     ],
@@ -412,20 +412,6 @@ function PreviewMedia({ image, gif, alt }: PreviewMediaProps) {
         )}
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          gap: 12,
-          padding: "10px 12px",
-          color: "rgba(15,23,42,0.65)",
-          fontSize: 12,
-          background: "rgba(255,255,255,0.75)",
-        }}
-      >
-        <span>{gif ? "Hover: GIF" : "Hover: zoom"}</span>
-        <span style={{ opacity: 0.9 }}>16:9</span>
-      </div>
     </div>
   );
 }
@@ -454,9 +440,22 @@ function IconButton({ href, title, children }: IconButtonProps) {
 }
 
 function EmailChip() {
+  const [copied, setCopied] = useState(false);
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL_ADDRESS);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    } catch {
+      setCopied(false);
+    }
+  };
+
   return (
-    <span
-      title={EMAIL_ADDRESS}
+    <button
+      type="button"
+      title={copied ? "Copied" : EMAIL_ADDRESS}
+      onClick={copyEmail}
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -468,11 +467,12 @@ function EmailChip() {
         border: "1px solid rgba(15,23,42,0.12)",
         color: "rgba(15,23,42,0.88)",
         background: "rgba(255,255,255,0.70)",
-        cursor: "help",
+        cursor: "copy",
+        appearance: "none",
       }}
     >
-      <Mail size={16} color={BRAND.linkedin} /> Email
-    </span>
+      <Mail size={16} color={BRAND.linkedin} /> {copied ? "Copied!" : "Email"}
+    </button>
   );
 }
 
@@ -923,10 +923,6 @@ export default function PortfolioMiguel() {
             ))}
           </div>
 
-          <div style={{ marginTop: 14, color: "rgba(15,23,42,0.62)", fontSize: 12 }}>
-            Replace <code>image</code> with real screenshots (and later add <code>previewGif</code> or
-            <code>previewVideo</code> for hover previews).
-          </div>
         </Section>
 
         {/* TOOLBOX */}
@@ -1076,10 +1072,6 @@ export default function PortfolioMiguel() {
 
             <GithubHeatmap username={USERNAME} />
 
-            <div style={{ marginTop: 10, fontSize: 12, color: "rgba(15,23,42,0.62)" }}>
-              Want the preview to swap to a GIF or silent video on hover? Just fill in <code>previewGif</code> or
-              implement <code>previewVideo</code>.
-            </div>
           </div>
         </Section>
 
