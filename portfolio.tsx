@@ -85,6 +85,17 @@ const USERNAME = "Mlcruz9";
 const PAGE_MAX_WIDTH = "min(96vw, 1680px)";
 const fromPublic = (path: string) => `/${path.replace(/^\/+/, "")}`;
 const EMAIL_ADDRESS = "miguellacruz.data@gmail.com";
+const GLOBAL_LAYOUT_CSS = `
+  html, body, #root {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #root {
+    max-width: none !important;
+    text-align: left;
+  }
+`;
 
 // Brand colors
 const BRAND = {
@@ -440,21 +451,34 @@ function IconButton({ href, title, children }: IconButtonProps) {
 }
 
 function EmailChip() {
-  const [copied, setCopied] = useState(false);
+  const [status, setStatus] = useState<"idle" | "copied">("idle");
   const copyEmail = async () => {
     try {
-      await navigator.clipboard.writeText(EMAIL_ADDRESS);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1600);
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(EMAIL_ADDRESS);
+      } else {
+        throw new Error("Clipboard API unavailable");
+      }
+      setStatus("copied");
     } catch {
-      setCopied(false);
+      const ta = document.createElement("textarea");
+      ta.value = EMAIL_ADDRESS;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "absolute";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      setStatus("copied");
     }
+    window.setTimeout(() => setStatus("idle"), 1600);
   };
 
   return (
     <button
       type="button"
-      title={copied ? "Copied" : EMAIL_ADDRESS}
+      title={status === "copied" ? "Email copied" : EMAIL_ADDRESS}
       onClick={copyEmail}
       style={{
         display: "inline-flex",
@@ -471,7 +495,7 @@ function EmailChip() {
         appearance: "none",
       }}
     >
-      <Mail size={16} color={BRAND.linkedin} /> {copied ? "Copied!" : "Email"}
+      <Mail size={16} color={BRAND.linkedin} /> {status === "copied" ? "Email copied" : "Email"}
     </button>
   );
 }
@@ -790,6 +814,7 @@ export default function PortfolioMiguel() {
 
   return (
     <div id="top" style={backgroundStyle}>
+      <style>{GLOBAL_LAYOUT_CSS}</style>
       <TopNav active={active} setActive={setActive} />
 
       <main style={{ width: "100%", maxWidth: PAGE_MAX_WIDTH, margin: "0 auto", padding: "0 18px 64px" }}>
