@@ -82,8 +82,9 @@ type ExperienceItem = {
  */
 
 const USERNAME = "Mlcruz9";
-const PAGE_MAX_WIDTH = 1320;
+const PAGE_MAX_WIDTH = 1680;
 const fromPublic = (path: string) => `/${path.replace(/^\/+/, "")}`;
+const EMAIL_ADDRESS = "miguellacruz.data@gmail.com";
 
 // Brand colors
 const BRAND = {
@@ -94,7 +95,6 @@ const BRAND = {
 const LINKS = {
   github: "https://github.com/Mlcruz9",
   linkedin: "https://www.linkedin.com/in/miguellacruz/",
-  email: "mailto:miguellacruz.data@gmail.com",
   cv: fromPublic("cv/MiguelLaCruz_CV.pdf"),
 };
 
@@ -163,6 +163,24 @@ const PROJECTS: Project[] = [
     image: fromPublic("img/image3.png"),
   },
   {
+    title: "MESSIER ERP",
+    subtitle: "ERP web platform (deployed)",
+    description:
+      "ERP platform for operations and workflow management with a Django backend and React frontend. Focused on modular architecture, maintainability, and business process integration.",
+    highlights: [
+      "Django + React architecture",
+      "Operational workflows and dashboards",
+      "Production deployment",
+    ],
+    stack: ["Django", "React", "PostgreSQL", "Docker", "Nginx"],
+    links: {
+      demo: DEPLOYS.erp,
+      repo: LINKS.github,
+    },
+    tag: "DEPLOYED",
+    image: fromPublic("img/image4.png"),
+  },
+  {
     title: "Battleship Monte Carlo AI",
     subtitle: "Monte Carlo simulation and heuristics",
     description:
@@ -174,11 +192,11 @@ const PROJECTS: Project[] = [
     ],
     stack: ["Python", "Monte Carlo", "Algorithms"],
     links: {
-      demo: "https://github.com/Mlcruz9/Battleship_AI",
-      repo: "https://github.com/Mlcruz9/Battleship_AI",
+      demo: "https://github.com/Mlcruz9/Battleship-IA",
+      repo: "https://github.com/Mlcruz9/Battleship-IA",
     },
     tag: "ALGORITHMS",
-    image: fromPublic("img/image4.png"),
+    image: fromPublic("img/image5.png"),
   },
 ];
 
@@ -435,6 +453,29 @@ function IconButton({ href, title, children }: IconButtonProps) {
   );
 }
 
+function EmailChip() {
+  return (
+    <span
+      title={EMAIL_ADDRESS}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 8,
+        padding: "10px 12px",
+        borderRadius: 12,
+        fontSize: 13,
+        fontWeight: 700,
+        border: "1px solid rgba(15,23,42,0.12)",
+        color: "rgba(15,23,42,0.88)",
+        background: "rgba(255,255,255,0.70)",
+        cursor: "help",
+      }}
+    >
+      <Mail size={16} color={BRAND.linkedin} /> Email
+    </span>
+  );
+}
+
 function ProjectCard({ p }: { p: Project }) {
   return (
     <motion.div
@@ -559,6 +600,7 @@ function TopNav({
     >
       <div
         style={{
+          width: "100%",
           maxWidth: PAGE_MAX_WIDTH,
           margin: "0 auto",
           padding: "14px 18px",
@@ -750,7 +792,7 @@ export default function PortfolioMiguel() {
     <div id="top" style={backgroundStyle}>
       <TopNav active={active} setActive={setActive} />
 
-      <main style={{ maxWidth: PAGE_MAX_WIDTH, margin: "0 auto", padding: "0 18px 64px" }}>
+      <main style={{ width: "100%", maxWidth: PAGE_MAX_WIDTH, margin: "0 auto", padding: "0 18px 64px" }}>
         {/* HERO */}
         <section style={{ padding: "54px 0 28px" }}>
           <motion.div
@@ -858,16 +900,10 @@ export default function PortfolioMiguel() {
                   alignItems: "center",
                 }}
               >
-                <ButtonLink href={LINKS.email} variant="secondary">
-                  <Mail size={16} color={BRAND.linkedin} /> Contact
-                </ButtonLink>
+                <EmailChip />
                 <ButtonLink href={LINKS.cv} variant="secondary">
                   <FileText size={16} color={BRAND.linkedin} /> Resume
                 </ButtonLink>
-
-                <span style={{ color: "rgba(15,23,42,0.55)", fontSize: 12 }}>
-                  Resume is served from <code style={{ color: "rgba(15,23,42,0.75)" }}>/cv/MiguelLaCruz_CV.pdf</code>
-                </span>
               </div>
             </div>
           </motion.div>
@@ -1061,9 +1097,7 @@ export default function PortfolioMiguel() {
             }}
           >
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-              <ButtonLink href={LINKS.email}>
-                <Mail size={16} color={BRAND.linkedin} /> Email
-              </ButtonLink>
+              <EmailChip />
               <ButtonLink href={LINKS.linkedin} variant="secondary">
                 <Linkedin size={16} color={BRAND.linkedin} /> LinkedIn
               </ButtonLink>
@@ -1093,7 +1127,7 @@ export default function PortfolioMiguel() {
       </main>
 
       <footer style={{ padding: "20px 0 36px", color: "rgba(15,23,42,0.55)", fontSize: 12 }}>
-        <div style={{ maxWidth: PAGE_MAX_WIDTH, margin: "0 auto", padding: "0 18px" }}>
+        <div style={{ width: "100%", maxWidth: PAGE_MAX_WIDTH, margin: "0 auto", padding: "0 18px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
               <Sparkles size={14} color={BRAND.linkedin} />
